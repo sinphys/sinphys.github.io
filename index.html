@@ -4,192 +4,611 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Profile page</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-  <meta name="author" content="">
+  <title>Sina Gholizadeh — Quantum Error Correction & Spin Qubits</title>
+  <meta name="description"
+    content="Sina Gholizadeh is a postdoctoral researcher in quantum error correction at the Centre for Quantum Software and Information (UTS Sydney), working with Simon Devitt.">
+  <meta name="author" content="Sina Gholizadeh">
+  <meta name="keywords"
+    content="Sina Gholizadeh, quantum error correction, spin qubits, hole qubits, quantum computing, UTS, QSI">
 
-  <!-- Font Awesome if you need it
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-  -->
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> 
-  <!--Replace with your tailwind.css once created-->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sina Gholizadeh">
+  <meta property="og:description"
+    content="Postdoctoral researcher in quantum error correction at UTS Sydney. Previously spin-qubit decoherence and nonlinear transport in 2D hole systems (PhD, UNSW).">
+  <meta property="og:image" content="https://sinphys.github.io/assets/profile.jpg">
+  <meta property="og:url" content="https://sinphys.github.io/">
 
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --bg-tint-a: rgba(93, 135, 255, 0.16);
+      --bg-tint-b: rgba(52, 211, 180, 0.14);
+      --surface: rgba(255, 255, 255, 0.72);
+      --surface-solid: #ffffff;
+      --border: rgba(17, 24, 39, 0.09);
+      --text: #11161f;
+      --muted: #5a6475;
+      --accent: #2f6df6;
+      --accent-soft: rgba(47, 109, 246, 0.1);
+      --shadow: 0 18px 50px -24px rgba(16, 24, 40, 0.35);
+      --radius: 18px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0e14;
+        --bg-tint-a: rgba(80, 120, 255, 0.2);
+        --bg-tint-b: rgba(45, 212, 191, 0.14);
+        --surface: rgba(21, 26, 36, 0.72);
+        --surface-solid: #151a24;
+        --border: rgba(255, 255, 255, 0.09);
+        --text: #e9edf5;
+        --muted: #9aa5b8;
+        --accent: #7aa2ff;
+        --accent-soft: rgba(122, 162, 255, 0.14);
+        --shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.8);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20vmax;
+      z-index: -1;
+      background:
+        radial-gradient(42vmax 42vmax at 18% 12%, var(--bg-tint-a), transparent 62%),
+        radial-gradient(38vmax 38vmax at 82% 78%, var(--bg-tint-b), transparent 62%);
+      animation: drift 26s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(-2%, -1%, 0) scale(1); }
+      to   { transform: translate3d(3%, 2%, 0) scale(1.08); }
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color .2s ease, opacity .2s ease;
+    }
+
+    a:hover { opacity: .8; }
+
+    /* ---------- nav ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(160%) blur(14px);
+      -webkit-backdrop-filter: saturate(160%) blur(14px);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s ease, background .3s ease;
+    }
+
+    header.scrolled { border-bottom-color: var(--border); }
+
+    .nav {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: .01em;
+      color: var(--text);
+    }
+
+    .brand span { color: var(--accent); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 24px -14px var(--accent);
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+
+    .btn:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px -14px var(--accent);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    .btn.ghost:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+    .btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ---------- layout ---------- */
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding-block: 56px 72px;
+      padding-inline: 24px;
+    }
+
+    section + section { margin-top: 84px; }
+
+    .eyebrow {
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 10px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: -.01em;
+    }
+
+    h1 { font-size: clamp(2.1rem, 6vw, 3.3rem); }
+    h2 { font-size: clamp(1.45rem, 3.4vw, 1.9rem); margin-bottom: 22px; }
+    h3 { font-size: 1.02rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+
+    p { margin: 0 0 1rem; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr .9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero .role {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    .hero .role strong { color: var(--text); font-weight: 600; }
+
+    .lede { font-size: 1.02rem; color: var(--muted); max-width: 54ch; }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      max-width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 22%;
+      display: block;
+      transition: transform .6s cubic-bezier(.2, .7, .3, 1);
+    }
+
+    .portrait:hover img { transform: scale(1.035); }
+
+    /* ---------- cards ---------- */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .focus h3 { margin-bottom: 6px; }
+    .focus p { margin: 0; font-size: .92rem; color: var(--muted); }
+    .focus.card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent); }
+
+    /* ---------- publications ---------- */
+    .pubs { display: flex; flex-direction: column; gap: 14px; }
+
+    .pub {
+      display: grid;
+      grid-template-columns: 62px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .pub .year {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.05rem;
+      color: var(--accent);
+      padding-top: 2px;
+    }
+
+    .pub .title { font-weight: 600; color: var(--text); display: inline-block; }
+    .pub .title:hover { color: var(--accent); opacity: 1; }
+    .pub .meta { font-size: .88rem; color: var(--muted); margin: 4px 0 0; }
+    .pub .meta em { font-style: normal; color: var(--text); }
+    .pub.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+    .pub-note { font-size: .88rem; color: var(--muted); margin-top: 18px; }
+
+    /* ---------- timeline ---------- */
+    .timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--border); }
+
+    .timeline li { position: relative; padding: 0 0 26px 22px; }
+    .timeline li:last-child { padding-bottom: 0; }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: -29px;
+      top: 7px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+    }
+
+    .timeline .when { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    .timeline .what { font-weight: 600; margin-top: 2px; }
+    .timeline .where { font-size: .92rem; color: var(--muted); }
+
+    /* ---------- footer ---------- */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 90px;
+    }
+
+    .footer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 44px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .socials { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .socials a {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--surface);
+      transition: transform .2s ease, border-color .2s ease, color .2s ease, background .2s ease;
+    }
+
+    .socials a:hover {
+      opacity: 1;
+      transform: translateY(-3px);
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .socials svg { width: 19px; height: 19px; fill: currentColor; }
+
+    .colophon { font-size: .85rem; color: var(--muted); }
+
+    /* ---------- reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .3, 1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      body::before { animation: none; }
+    }
+
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; gap: 34px; }
+      .portrait { max-width: 320px; margin-inline: auto; order: -1; }
+      main { padding-block: 40px 56px; }
+      section + section { margin-top: 64px; }
+      .pub { grid-template-columns: 1fr; gap: 4px; }
+      .pub .year { padding-top: 0; font-size: .95rem; }
+    }
+  </style>
 </head>
 
-<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('https://i.imgur.com/SoG7LXx.jpg');">
+<body>
 
-<!-- Navigation Bar -->
-<nav class="bg-gray-800 p-2">
-  <div class="flex items-center justify-start"> <!-- Changed justify-between to justify-start -->
-      <a href="#" class="text-white text-lg font-bold mr-4">Home</a> <!-- Added mr-4 for spacing -->
-      <a href="about.html" class="text-white mr-4">About</a> <!-- Added mr-4 for spacing -->
-      <a href="https://pishiq.github.io/" class="text-white">pişiQ</a> <!-- New menu item -->
-      <!-- Add more menu items here if needed -->
-  </div>
-</nav>
-
-
-
-
-  <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
-    
-	<!--Main Col-->
-	<div id="profile" class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0">
-	
-
-		<div class="p-4 md:p-12 text-center lg:text-left">
-			<!-- Image for mobile view-->
-			<div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url('https://i.imgur.com/m4q1ARB.jpg')"></div>
-			
-			<h1 class="text-3xl font-bold pt-8 lg:pt-0">Sina Gholizadeh</h1>
-			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
-			<p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z"/></svg> PhD Student in Physics</p>
-			<p class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm7.75-8a8.01 8.01 0 0 0 0-4h-3.82a28.81 28.81 0 0 1 0 4h3.82zm-.82 2h-3.22a14.44 14.44 0 0 1-.95 3.51A8.03 8.03 0 0 0 16.93 14zm-8.85-2h3.84a24.61 24.61 0 0 0 0-4H8.08a24.61 24.61 0 0 0 0 4zm.25 2c.41 2.4 1.13 4 1.67 4s1.26-1.6 1.67-4H8.33zm-6.08-2h3.82a28.81 28.81 0 0 1 0-4H2.25a8.01 8.01 0 0 0 0 4zm.82 2a8.03 8.03 0 0 0 4.17 3.51c-.42-.96-.74-2.16-.95-3.51H3.07zm13.86-8a8.03 8.03 0 0 0-4.17-3.51c.42.96.74 2.16.95 3.51h3.22zm-8.6 0h3.34c-.41-2.4-1.13-4-1.67-4S8.74 3.6 8.33 6zM3.07 6h3.22c.2-1.35.53-2.55.95-3.51A8.03 8.03 0 0 0 3.07 6z"/></svg> School of Physics, UNSW Sydney</p>
-			<p class="pt-8 text-sm">I am a PhD student at UNSW Sydney, currently focused on researching hole spin qubits.</p>
-
-<!-- Add some vertical space below your bio -->
-<div class="mb-5 lg:mb-10"></div>
-
-<!-- Add RSS feed headlines -->
-<div id="rssFeed" class="pt-4 text-sm text-center lg:text-left bg-gray-100 p-4 rounded-lg shadow-md">
-    <h2 class="text-lg font-semibold mb-2">Latest Physics News</h2>
-    <ul id="rssHeadlines" class="list-disc pl-6"></ul>
-</div>
-
-<!-- ... The rest of your code ... -->
-
-
-
-<script>
-// Fetch and display RSS feed headlines
-fetch('https://api.rss2json.com/v1/api.json?rss_url=https://phys.org/rss-feed/physics-news/materials/')
-    .then(response => response.json())
-    .then(data => {
-        const rssHeadlinesElement = document.getElementById('rssHeadlines');
-        const items = data.items.slice(0, 5); // Limit to the latest 5 headlines
-        
-        items.forEach(item => {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = item.link;
-            link.target = '_blank';
-            link.textContent = item.title;
-            listItem.appendChild(link);
-            rssHeadlinesElement.appendChild(listItem);
-        });
-    })
-    .catch(error => {
-        console.error('Error fetching RSS feed:', error);
-    });
-</script>
-
-
-
-
-
-<!-- 		
-	<div class="pt-12 pb-8">
-				<button class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
-				  Get In Touch
-				</button> 
-			</div>
--->
-
-
-
-<div class="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center justify-center"> <!-- Changed justify-between to justify-center -->
-    <a class="link mr-4" href="mailto:s.gholizadeh@unsw.edu.au" data-tippy-content="@Sina" target="_blank"> <!-- Added target="_blank" -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/>
+  <header id="site-header">
+    <nav class="nav">
+      <a class="brand" href="#top">Sina Gholizadeh<span>.</span></a>
+      <a class="btn" href="assets/Sina-Gholizadeh-CV.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
         </svg>
-    </a>
-<a class="link mr-4" href="https://matrix.to/#/@sinag:matrix.org" data-tippy-content="@matrix" target="_blank">
-    <img src="https://i.imgur.com/Cy7iIta.png" width="24" height="24" alt="PNG Icon"/>
-</a>
-    <a class="link mr-4" href="https://github.com/sinphys" data-tippy-content="@github" target="_blank"> <!-- Added target="_blank" -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.3-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-    </a>
-    <a class="link" href="https://scholar.google.com.au/citations?hl=en&pli=1&user=mcTrAB4AAAAJ" data-tippy-content="@scholar" target="_blank"> <!-- Added target="_blank" -->
-        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 21h-3l1-3h1l1 3zm-12.976-4.543l8.976-4.575v6.118c-1.007 2.041-5.607 3-8.5 3-3.175 0-7.389-.994-8.5-3v-6.614l8.024 5.071zm11.976.543h-1v-7.26l-10.923 5.568-11.077-7 12-5.308 11 6.231v7.769z"/></svg>
-    </a>
+        Curriculum Vitae
+      </a>
+    </nav>
+  </header>
 
-</div>
+  <main id="top">
 
+    <!-- Hero -->
+    <section class="hero">
+      <div class="reveal">
+        <p class="eyebrow">Postdoctoral Researcher</p>
+        <h1>Making quantum computers that survive their own noise.</h1>
+        <p class="role">
+          <strong>Quantum error correction</strong> at the Centre for Quantum Software and Information (QSI),
+          University of Technology Sydney — in the group of <strong>A/Prof. Simon Devitt</strong>.
+        </p>
+        <p class="lede">
+          My work follows a single thread: noise. During my PhD at UNSW I asked how real devices lose
+          their quantum information — how charge noise dephases hole spin qubits, and how spin-3/2 holes
+          respond nonlinearly when driven out of equilibrium. Now I work a level up, on the error-correction
+          and architecture layer that turns noisy physical qubits into logical ones you can actually compute with.
+        </p>
+        <div class="cta">
+          <a class="btn" href="assets/Sina-Gholizadeh-CV.pdf" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn ghost" href="#publications">Selected work</a>
+          <a class="btn ghost" href="mailto:sina.gholizadeh@uts.edu.au">Get in touch</a>
+        </div>
+      </div>
 
+      <div class="portrait reveal">
+        <img src="assets/profile.jpg" alt="Portrait of Sina Gholizadeh" width="1280" height="922">
+      </div>
+    </section>
 
-			
-			<!-- Use https://simpleicons.org/ to find the svg for your preferred product --> 
+    <!-- Focus -->
+    <section id="research" class="reveal">
+      <p class="eyebrow">What I work on</p>
+      <h2>From the physics of a single qubit to the architecture of a fault-tolerant machine.</h2>
+      <div class="grid">
+        <div class="card focus">
+          <h3>Quantum error correction</h3>
+          <p>Codes, decoders and compilation strategies that keep logical information alive long enough to be useful.</p>
+        </div>
+        <div class="card focus">
+          <h3>Fault-tolerant architecture</h3>
+          <p>How resource estimates, layout and scheduling shape what a real machine can run — and at what cost.</p>
+        </div>
+        <div class="card focus">
+          <h3>Spin-qubit decoherence</h3>
+          <p>1/f charge noise and its anisotropic signature in the dephasing time of planar Ge hole spin qubits.</p>
+        </div>
+        <div class="card focus">
+          <h3>Nonlinear hole transport</h3>
+          <p>Nonlinear and nonequilibrium response of spin-3/2 heavy holes in low-dimensional semiconductors.</p>
+        </div>
+      </div>
+    </section>
 
-		</div>
+    <!-- Publications -->
+    <section id="publications" class="reveal">
+      <p class="eyebrow">Selected publications</p>
+      <h2>Recent work</h2>
 
-	</div>
-	
-	<!--Img Col-->
-	<div class="w-full lg:w-2/5">
-		<!-- Big profile image for side bar (desktop) -->
-		<img src="https://i.imgur.com/m4q1ARB.jpg" class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
-		<!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
-		
-	</div>
-	
-	
-	<!-- Pin to top right corner -->
-<!--
+      <div class="pubs">
 
-	  <div class="absolute top-0 right-0 h-12 w-18 p-4">
-		<button class="js-change-theme focus:outline-none">🌙</button>
-	  </div>
+        <article class="card pub">
+          <div class="year">2026</div>
+          <div>
+            <a class="title" href="https://arxiv.org/abs/2608.03754" target="_blank" rel="noopener">
+              Chaos suppression via adaptive feedback control of intermittency: from exactly solvable ergodic maps to
+              interacting microbubble clusters
+            </a>
+            <p class="meta">M. Yahyavi, <em>S. Gholizadeh</em>, S. Behnia, B. Tanatar — <em>Phys. Rev. Research</em>
+              <strong>8</strong>, 033205
+            </p>
+          </div>
+        </article>
 
--->
+        <article class="card pub">
+          <div class="year">2025</div>
+          <div>
+            <a class="title" href="https://doi.org/10.1103/PhysRevB.111.155403" target="_blank" rel="noopener">
+              Dephasing of planar Ge hole spin qubits due to charge noise
+            </a>
+            <p class="meta">Z. Wang, <em>S. Gholizadeh</em>, X. Hu, S. Das Sarma, D. Culcer — <em>Phys. Rev. B</em>
+              <strong>111</strong>, 155403
+            </p>
+          </div>
+        </article>
 
-</div>
+        <article class="card pub">
+          <div class="year">2025</div>
+          <div>
+            <span class="title">Non-linear non-equilibrium effects in low-dimensional spin-3/2 hole systems</span>
+            <p class="meta">PhD thesis, UNSW Sydney — supervisor: Prof. Dimitrie Culcer</p>
+          </div>
+        </article>
 
-<!-- 	
-	<script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
-	<script src="https://unpkg.com/tippy.js@4"></script>
-	<script>
-  // Init tooltips
-  tippy('.link', {
-    placement: 'bottom'
-  });
+        <article class="card pub">
+          <div class="year">2023</div>
+          <div>
+            <a class="title" href="https://doi.org/10.1103/PhysRevB.107.L041301" target="_blank" rel="noopener">
+              Nonlinear Hall effect of magnetized two-dimensional spin-3/2 heavy holes
+            </a>
+            <p class="meta"><em>S. Gholizadeh</em>, J. H. Cullen, D. Culcer — <em>Phys. Rev. B</em>
+              <strong>107</strong>, L041301 (Letter)
+            </p>
+          </div>
+        </article>
 
-  // Toggle mode
-  const toggle = document.querySelector('.js-change-theme');
-  const body = document.querySelector('body');
-  const profile = document.getElementById('profile');
+        <article class="card pub">
+          <div class="year">2018</div>
+          <div>
+            <a class="title" href="https://doi.org/10.1209/0295-5075/122/27001" target="_blank" rel="noopener">
+              Extended Creutz ladder with spin–orbit coupling: a one-dimensional analogue of the Kane–Mele model
+            </a>
+            <p class="meta"><em>S. Gholizadeh</em>, M. Yahyavi, B. Hetényi — <em>EPL</em> <strong>122</strong>, 27001</p>
+          </div>
+        </article>
 
-  const iconLinks = document.querySelectorAll('.link svg path'); // Select all icon paths
+      </div>
 
-  toggle.addEventListener('click', () => {
-    if (body.classList.contains('text-gray-900')) {
-      toggle.innerHTML = "☀️";
-      body.classList.remove('text-gray-900');
-      body.classList.add('text-gray-100');
-      profile.classList.remove('bg-white');
-      profile.classList.add('bg-gray-900');
+      <p class="pub-note">
+        Full list and citation metrics on
+        <a href="https://scholar.google.com/citations?user=mcTrAB4AAAAJ&hl=en" target="_blank"
+          rel="noopener">Google Scholar</a>.
+      </p>
+    </section>
 
-      // Change icon colors to white
-      iconLinks.forEach(icon => {
-        icon.setAttribute('fill', '#ffffff');
-      });
+    <!-- Path -->
+    <section id="path" class="reveal">
+      <p class="eyebrow">Background</p>
+      <h2>The path here</h2>
+      <ul class="timeline">
+        <li>
+          <div class="when">2026 — present</div>
+          <div class="what">Postdoctoral researcher, quantum error correction</div>
+          <div class="where">Centre for Quantum Software and Information (QSI), University of Technology Sydney</div>
+        </li>
+        <li>
+          <div class="when">2020 — 2025</div>
+          <div class="what">PhD in Physics</div>
+          <div class="where">UNSW Sydney — spin-qubit decoherence and nonlinear transport in 2D hole systems,
+            with Prof. Dimitrie Culcer</div>
+        </li>
+        <li>
+          <div class="when">2014 — 2017</div>
+          <div class="what">MSc in Physics</div>
+          <div class="where">Bilkent University, Ankara — topological models and the magnetic translation group,
+            with Prof. Balázs Hetényi</div>
+        </li>
+        <li>
+          <div class="when">2008 — 2013</div>
+          <div class="what">BSc in Theoretical Physics &amp; Astrophysics</div>
+          <div class="where">University of Tabriz</div>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="colophon">
+        Sydney, Australia ·
+        <a href="mailto:sina.gholizadeh@uts.edu.au">sina.gholizadeh@uts.edu.au</a>
+      </div>
+      <div class="socials">
+        <a href="mailto:sina.gholizadeh@uts.edu.au" title="Email" aria-label="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
+          </svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=mcTrAB4AAAAJ&hl=en" target="_blank" rel="noopener"
+          title="Google Scholar" aria-label="Google Scholar">
+          <svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true">
+            <path
+              d="M24 21h-3l1-3h1l1 3zm-12.976-4.543l8.976-4.575v6.118c-1.007 2.041-5.607 3-8.5 3-3.175 0-7.389-.994-8.5-3v-6.614l8.024 5.071zm11.976.543h-1v-7.26l-10.923 5.568-11.077-7 12-5.308 11 6.231v7.769z" />
+          </svg>
+        </a>
+        <a href="https://github.com/sinphys" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.3-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+        </a>
+        <a href="https://matrix.to/#/@sinag:matrix.org" target="_blank" rel="noopener" title="Matrix"
+          aria-label="Matrix">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M1.2 0h2.2v.9H2.1v22.2h1.3v.9H1.2V0zm4.6 7.3h2.1v1.2h.1c.6-.9 1.6-1.4 2.7-1.4 1.2 0 2.2.5 2.7 1.6.7-1 1.7-1.6 3-1.6 1.9 0 3.1 1.2 3.1 3.4v6.2h-2.2v-5.8c0-1.3-.6-2-1.7-2-1.2 0-2 .9-2 2.3v5.5h-2.2v-5.9c0-1.2-.6-1.9-1.7-1.9-1.2 0-2 .9-2 2.3v5.5H5.8V7.3zM22.8 24h-2.2v-.9h1.3V.9h-1.3V0h2.2v24z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Subtle border on the sticky header once the page moves.
+    const header = document.getElementById('site-header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Reveal sections as they enter the viewport.
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (!entry.isIntersecting) return;
+          entry.target.style.transitionDelay = (i * 80) + 'ms';
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      items.forEach(el => io.observe(el));
     } else {
-      toggle.innerHTML = "🌙";
-      body.classList.remove('text-gray-100');
-      body.classList.add('text-gray-900');
-      profile.classList.remove('bg-gray-900');
-      profile.classList.add('bg-white');
-
-      // Change icon colors back to their original color (black)
-      iconLinks.forEach(icon => {
-        icon.setAttribute('fill', 'currentColor');
-      });
+      items.forEach(el => el.classList.add('in'));
     }
-  });
-</script>
--->
-	
+  </script>
+
 </body>
 
 </html>
