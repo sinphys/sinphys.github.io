@@ -29,32 +29,34 @@
 
   <style>
     :root {
-      --bg: #f7f8fa;
-      --bg-tint-a: rgba(93, 135, 255, 0.16);
-      --bg-tint-b: rgba(52, 211, 180, 0.14);
-      --surface: rgba(255, 255, 255, 0.72);
-      --surface-solid: #ffffff;
-      --border: rgba(17, 24, 39, 0.09);
-      --text: #11161f;
-      --muted: #5a6475;
-      --accent: #2f6df6;
-      --accent-soft: rgba(47, 109, 246, 0.1);
-      --shadow: 0 18px 50px -24px rgba(16, 24, 40, 0.35);
+      --bg: #faf5ec;
+      --bg-tint-a: rgba(203, 153, 88, 0.34);
+      --bg-tint-b: rgba(156, 141, 100, 0.24);
+      --surface: rgba(255, 252, 245, 0.74);
+      --surface-solid: #fffdf8;
+      --border: rgba(92, 69, 45, 0.14);
+      --text: #2e241b;
+      --muted: #7a6a58;
+      --accent: #9c4f21;
+      --on-accent: #fffaf2;
+      --accent-soft: rgba(156, 79, 33, 0.09);
+      --shadow: 0 18px 50px -24px rgba(74, 52, 30, 0.42);
       --radius: 18px;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0b0e14;
-        --bg-tint-a: rgba(80, 120, 255, 0.2);
-        --bg-tint-b: rgba(45, 212, 191, 0.14);
-        --surface: rgba(21, 26, 36, 0.72);
-        --surface-solid: #151a24;
-        --border: rgba(255, 255, 255, 0.09);
-        --text: #e9edf5;
-        --muted: #9aa5b8;
-        --accent: #7aa2ff;
-        --accent-soft: rgba(122, 162, 255, 0.14);
+        --bg: #1a1510;
+        --bg-tint-a: rgba(196, 136, 70, 0.22);
+        --bg-tint-b: rgba(120, 112, 80, 0.18);
+        --surface: rgba(39, 31, 23, 0.74);
+        --surface-solid: #271f17;
+        --border: rgba(240, 228, 206, 0.11);
+        --text: #f2e9da;
+        --muted: #ab9b86;
+        --accent: #e0a060;
+        --on-accent: #241a10;
+        --accent-soft: rgba(224, 160, 96, 0.13);
         --shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.8);
       }
     }
@@ -84,8 +86,9 @@
       inset: -20vmax;
       z-index: -1;
       background:
-        radial-gradient(42vmax 42vmax at 18% 12%, var(--bg-tint-a), transparent 62%),
-        radial-gradient(38vmax 38vmax at 82% 78%, var(--bg-tint-b), transparent 62%);
+        radial-gradient(48vmax 34vmax at 14% 8%, var(--bg-tint-a), transparent 64%),
+        radial-gradient(44vmax 32vmax at 88% 72%, var(--bg-tint-b), transparent 64%),
+        radial-gradient(60vmax 26vmax at 50% 108%, var(--bg-tint-a), transparent 70%);
       animation: drift 26s ease-in-out infinite alternate;
     }
 
@@ -146,7 +149,7 @@
       font-weight: 600;
       border: 1px solid transparent;
       background: var(--accent);
-      color: #fff;
+      color: var(--on-accent);
       box-shadow: 0 10px 24px -14px var(--accent);
       transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
     }
@@ -384,12 +387,6 @@
   <header id="site-header">
     <nav class="nav">
       <a class="brand" href="#top">Sina Gholizadeh<span>.</span></a>
-      <a class="btn" href="assets/Sina-Gholizadeh-CV.pdf" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
-        </svg>
-        Curriculum Vitae
-      </a>
     </nav>
   </header>
 
@@ -399,7 +396,7 @@
     <section class="hero">
       <div class="reveal">
         <p class="eyebrow">Postdoctoral Researcher</p>
-        <h1>Making quantum computers that survive their own noise.</h1>
+        <h1>I study how quantum computers lose information, and how to protect it.</h1>
         <p class="role">
           <strong>Quantum error correction</strong> at the Centre for Quantum Software and Information (QSI),
           University of Technology Sydney — in the group of <strong>A/Prof. Simon Devitt</strong>.
@@ -475,14 +472,6 @@
             <p class="meta">Z. Wang, <em>S. Gholizadeh</em>, X. Hu, S. Das Sarma, D. Culcer — <em>Phys. Rev. B</em>
               <strong>111</strong>, 155403
             </p>
-          </div>
-        </article>
-
-        <article class="card pub">
-          <div class="year">2025</div>
-          <div>
-            <span class="title">Non-linear non-equilibrium effects in low-dimensional spin-3/2 hole systems</span>
-            <p class="meta">PhD thesis, UNSW Sydney — supervisor: Prof. Dimitrie Culcer</p>
           </div>
         </article>
 
